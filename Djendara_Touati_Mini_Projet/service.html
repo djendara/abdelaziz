@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>Vivarea | ​Restaurants | Livraison de repas à domicile</title>
+   <meta charset="utf-8" /> 
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" type="text/css" href="acceuil.css">
+
+     <!-- Either That Or Download The Font Style, The Download Is In The Document-->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+   
+   <style>
+
+      #map {
+        height: 500px;/*il faut donner une taille pour la map*/
+      }
+      td,.adp-maneuver{
+      	background: white;/*donner background white pour le text (td) et les icon (.adp-maneuver) de google maps*/
+      }
+      span{
+      	color:orangered;/* c'est la couler du text de distance */
+      }
+     .content{
+       clear: both;  
+	margin-top: 3.5%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+h1{
+   	margin-left: 10px;
+   	color: white;
+}
+
+input[type=radio],input[type=checkbox]{
+	margin-left: 20px;
+}
+
+.checkboxtext{
+	color: white;
+   	font-size: 22px;
+}
+
+
+     /*le div de position debar et fin */
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      /*le div de discription des info*/
+      #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        overflow-y:  scroll;
+        height: 400px;
+        float: right;
+        width: 390px;
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 12px;
+      }
+
+      #floating-panel {
+        background: #fff;
+        padding: 5px;
+        font-size: 14px;
+        font-family: Arial;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+        display: none; /*il faut afficher si la map a ete charge dans le website*/
+      }
+    </style>
+ </head>
+ <body>
+ <!-- The Logo Of The Restaurant, Not Made By Us, Found In The Internet -->
+
+ 	 <a href="acceuil.html"><img class="logo" src="images/vivariafood-logo.png" height="130"></a>
+
+ <!-- Navbar With All The Rubrics -->
+
+  <div class="myNavbar">
+    <a href="acceuil.html" class="navItem">Home</a>
+    <a href="menu.html" class="navItem">Menu</a>
+    <a href="service.html" class="navItem active" >Location</a>
+    <a href="contact.html" class="navItem">Contact Us</a>
+  </div>
+
+     <div class="content">
+
+        <h1>Sélectionnez votre moyen de transport :</h1>
+        <input id="DRIVING" type="radio" name="radio" checked onclick="travelMode('DRIVING')"> <span class="checkboxtext">DRIVING</span> 
+        <input id="WALKING" type="radio" name="radio"         onclick="travelMode('WALKING')"> <span class="checkboxtext">WALKING</span> 
+        <input id="TRANSIT" type="radio" name="radio"         onclick="travelMode('TRANSIT')"> <span class="checkboxtext">TRANSIT</span>
+        <div id="plus_proche"></div>
+        <br><br>
+                
+
+     	 <div id="floating-panel">
+      <strong>Start:</strong>
+      <select id="start">
+        <option value="Vous">Votre Position</option>
+        <option value="Vivarea Food Oran">Vivarea Food Oran</option>
+        <option value="Vivarea">Vivarea</option>
+        <option value="VIVAREA FOOD ARDIS ORAN">VIVAREA FOOD ARDIS ORAN</option>
+    </select>
+    <b>End: </b>
+    <select id="end">Vevaria Food Oran
+       <option value="Vivarea Food Oran">Vivarea Food Oran</option>
+      <option value="Vivarea">Vivarea</option>
+      <option value="VIVAREA FOOD ARDIS ORAN">VIVAREA FOOD ARDIS ORAN</option>
+    </select>
+    </div>
+
+    <div id="right-panel"></div>
+
+    <div id="map"></div>
+
+    <br><br>
+
+<script>
+      
+var pos;
+var mode='DRIVING';
+//function pour changer travelMode 
+function travelMode(mod) {
+      	mode=mod;
+      }
+//function pour initialiser la map
+function initMap() {
+
+        var  directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: 35.7167, lng:  -0.6667}//lat et long pour oran
+        });
+
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('right-panel'));//setPanel est fonction pour aficher les info sur un div donner (right-panel)
+
+        var control = document.getElementById('floating-panel');
+        control.style.display = 'block';
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);//add the floating-panel in the map 
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // la geolocation 
+         if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+             pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Votre Position');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // si la Geolocation est refuse par le site
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+        var onChangeHandler = function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        };
+            //ajoute des evente onchange pour les option de start et end
+        document.getElementById('start').addEventListener('change', onChangeHandler);
+        document.getElementById('end').addEventListener('change', onChangeHandler);
+            //ajoute des evente onclick pour les radio travelmode DRIVING WALKING TRANSIT 
+        document.getElementById('DRIVING').addEventListener('click', onChangeHandler);
+        document.getElementById('WALKING').addEventListener('click', onChangeHandler);
+        document.getElementById('TRANSIT').addEventListener('click', onChangeHandler);
+
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+
+       var start = document.getElementById('start').value;
+      
+       if (document.getElementById('start').value == 'Vous') {
+       //si le chemp selectioner est votre position on utiliser le resulta de Geolocation
+        start = pos;
+       } 
+        
+        var end = document.getElementById('end').value;
+      //utiliser les servise de google pouraffichage de la direction
+        directionsService.route({
+          origin: start,
+          destination: end,
+          travelMode: mode
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeMhs9IQGXsrpghaCHAFAi2KllFblEmuA&callback=initMap">
+    </script>
+     	
+     </div>
+
+     <!-- A Footer With The Name Of The Wibesite, The Social Media And Contact Us Rubric Short Access-->
+
+<footer class="footerr">
+       <p class="groupName">Vivarea Group</p>
+     <div class="social">
+            <ul>
+                <li>
+                    <a href="#" title="facebook">
+                    <img src="images/facebook2.png"  width =20% /></a>
+                </li>
+                <li>
+                  <a href="#" title="twitter">
+                    <img src="images/twitter2.png"  width =20%  /></a>
+                </li>
+                <li>
+                  <a href="#" title="instagram">
+                    <img src="images/instagram.png"  width =20%/></a>
+                </li>
+            </ul>
+        </div>
+        <div class="contact">
+          <p>Avez-vous des questions ?</p>
+          <a href="contact.html">Nous sommes là pour vous aider ! </a> 
+        </div>
+</footer>
+ </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>Vivarea | ​Restaurants | Livraison de repas à domicile</title>
+   <meta charset="utf-8" /> 
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" type="text/css" href="acceuil.css">
+   <link rel="stylesheet" type="text/css" href="menu.css">
+   <link rel="stylesheet" type="text/css" href="offre.css">
+   <link rel="icon" href="images/icon11.png">
+     
+     <!-- Either That Or Download The Font Style, The Download Is In The Document-->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+
+ </head>
+ <body>
+ <!-- The Logo Of The Restaurant, Not Made By Us, Found In The Internet -->
+
+  <a href="acceuil.html"><img class="logo" src="images/vivariafood-logo.png" height="130"></a>
+  
+
+ <!-- Navbar With All The Rubrics -->
+
+  <div class="myNavbar">
+    <a href="acceuil.html" class="navItem">Home</a>
+    <a href="menu.html" class="navItem active">Menu</a>
+    <a href="service.html" class="navItem" >Location</a>
+    <a href="contact.html" class="navItem">Contact Us</a>
+  </div>
+
+   <div class="menuContent">
+   <!-- Menu -->
+   <div class="restoNum">
+     <p class="justColor">Commandez maintenant !</p>
+
+     <!-- A Select Option To Let The Client Choose The Restaurant And Get The Phone Number To Command From It -->
+     <!-- The Function To Hide Other Numbers After The Select Is Writing Here From The Start Line 119 To The Line 141 -->
+     <select id="choixResto" onclick="showNumber()">
+        <option value="0" disabled="true">Sélectionnez un de nos resto</option>
+        <option value="v1">Vivarea, 420 Rue Frih Med</option>
+        <option value="v2">Vivarea Food, Bir El Djir</option>
+        <option value="v3">Vivarea Food Ardis, Bir El Djir</option>
+     </select>
+     <p class="numAsk">N°tel du restaurant :</p>
+     <p class="num">05-56-77-10-23</p>
+     <p class="num">05-55-32-14-04</p>
+     <p class="num">06-63-11-50-71</p>
+
+   </div>
+
+     <!-- A Div Showing The Diffrent Little Rubrics And There Is The Selected One Defined As The "selectedThing"-->
+   <div class="div1">
+    <a href="offre.html" class="selectedThing">Offres</a>
+    <a href="menu.html" >Menu</a>
+    <a href="info.html">Infos</a>
+   </div>
+   
+   <!-- A Div Showing The Offers -->
+   <div class="offers">
+    <h3>Offres valables tout les jours de la semaine :</h3>
+    <p>* Livraison gratuite de 14h jusqu'à 17:30h</p>
+    <p>* Réduction de 20% de commande dépassant 1500 DA</p>
+    <p>* 3 pizza achetées, la 4 ème est offert !</p>
+    <p>* 2 burger achetés, boisson au choix offerte + des frites</p>
+    <h3>Offres spéciale :</h3>
+    <p>* -35% de remise sur nos produits dessert pendant les week-ends !</p>
+
+  </div>
+
+</div>
+     <!-- A Footer With The Name Of The Wibesite, The Social Media And Contact Us Rubric Short Access-->
+
+   <footer class="footerr">
+       <p class="groupName">Vivarea Group</p>
+     <div class="social">
+            <ul>
+                <li>
+                    <a href="#" title="facebook">
+                    <img src="images/facebook2.png"  width =20% /></a>
+                </li>
+                <li>
+                  <a href="#" title="twitter">
+                    <img src="images/twitter2.png"  width =20%  /></a>
+                </li>
+                <li>
+                  <a href="#" title="instagram">
+                    <img src="images/instagram.png"  width =20%/></a>
+                </li>
+            </ul>
+        </div>
+        <div class="contact">
+          <p>Avez-vous des questions ?</p>
+          <a href="contact.html">Nous sommes là pour vous aider ! </a> 
+        </div>
+</footer>
+     <script>
+      
+      function showNumber(){
+        var choix = document.getElementById('choixResto');
+        var text = choix.options[choix.selectedIndex].value;
+        var numberHide = document.getElementsByClassName('num');
+
+        
+        switch (text){
+          case 'v1' : {
+          numberHide[0].style.display = "block";
+          numberHide[1].style.display = "none";
+          numberHide[2].style.display = "none";}break;
+          case 'v2' : {
+          numberHide[1].style.display = "block";
+          numberHide[0].style.display = "none";
+          numberHide[2].style.display = "none";}break;
+        
+        case 'v3' : {
+          numberHide[2].style.display = "block";
+          numberHide[0].style.display = "none";
+          numberHide[1].style.display = "none";}break;
+        }
+      }
+      showNumber();
+     </script>
+</body>
+</html>

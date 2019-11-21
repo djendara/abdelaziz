@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>Vivarea | ​Restaurants | Livraison de repas à domicile</title>
+   <meta charset="utf-8" /> 
+   
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" type="text/css" href="acceuil.css">
+   <link rel="icon" href="images/icon11.png">
+
+     <!-- Either That Or Download The Font Style, The Download Is In The Document-->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+ 
+ </head>
+ <body>
+ <!-- The Logo Of The Restaurant, Not Made By Us, Found In The Internet -->
+
+  <a href="acceuil.html"><img class="logo" src="images/vivariafood-logo.png" height="130"></a>
+
+ <!-- Navbar With All The Rubrics -->
+
+  <div class="myNavbar">
+    <a href="acceuil.html" class="navItem active">Home</a>
+    <a href="menu.html" class="navItem">Menu</a>
+    <a href="service.html" class="navItem" >Location</a>
+    <a href="contact.html" class="navItem">Contact Us</a>
+  </div>
+
+<!-- Header with images -->
+<header id="home">
+ 
+ 
+     <!-- Automatic Slideshow Images With A Little Description And Talk About The Various Offers-->
+     <!--The Script Start At The Line 93 To The Line 106-->
+
+
+  <div class="mySlides">
+    <img class="sideshow" src="images/sharefood.jpg" height="570">
+    <div class="description">
+      <h3>Des réductions exclusifs !</h3>
+      <p><b>Venez nombreux et profiter des réductions allant jusqu'à 35%</b><br>Pour savoir plus <a href="offre.html">cliquez ici</a></p>    
+    </div>
+  </div>
+  <div class="mySlides">
+    <img class="sideshow" src="images/pizza4.png" height="570">
+    <div class="description">
+      <h3>3 pizzas achetés = La 4ème est offerte !!!</h3>
+      <p><b>*Offre valable tout les jours de la semaine</b><br>Pour savoir plus <a href="offre.html">cliquez ici</a></p>    
+  </div>
+  </div>
+   <div class="mySlides">
+    <img class="sideshow" src="images/burger.png" height="570">
+    <div class="description">
+      <h3>2 burger achetés = boisson offerte + des frites !!</h3>
+      <p><b>*Offre valable tout les jours de la semaine</b><br>Pour savoir plus <a href="offre.html">cliquez ici</a></p>  
+    </div>
+  </div>
+   <div class="mySlides">
+    <img class="sideshow" src="images/cake.jpg" height="570">
+    <div class="description">
+      <h3>-35% de remise sur nos produits dessert</h3>
+      <p><b>*Offre valable seulement tout le week-end</b><br>Pour savoir plus <a href="offre.html">cliquez ici</a></p></p>  
+    </div>
+  </div>
+  
+
+</header>
+     <!--Div Containing Rubrics Description And a Short Access To It -->
+
+ <div class="grid-container">
+  <div class="grid-item item1"><img class="pic1" src="images/menu3.jpg"><h3 class="para1">Menu</h3></div>
+  <div class="grid-item item1"><img class="pic1" src="images/offre1.jpg"><h3 class="para1">Offres</h3></div>
+  <div class="grid-item item1"><img class="pic1" src="images/location.jpg"><h3 class="para1">Location</h3></div>  
+  <div class="grid-item item4"><p>Pour voir notre savoureux menu veuillez <a href="menu.html">cliquez ici</a></p></div>
+  <div class="grid-item item4"><p>Découvrez nos offres exclusives, des réductions et tout. Pour savoir plus <a href="offre.html">cliquez ici</a></p></div>
+  <div class="grid-item item4"><p>Pour voir ou tout nos restaurants se situe et celui proche de vous <a href="service.html">cliquez ici</a></p></div>
+
+
+ </div>
+     <!-- Div Containing About Us Talk -->
+
+ <div class="about-us-container">
+   <img src="images/about.jpg" class="floot">
+   <div class="about-us-talk">
+     <h2>About Us </h2>
+     <p>Notre mission est de captiver les sens de nos clients à travers une proposition gastronomique unique, innovante, saine et délicieuse. Vous apporter une expérience de service extraordinaire.</p>
+   </div>
+ </div>
+
+
+<script>
+// Automatic Slideshow - change image every 5 seconds
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 5000);    
+}
+</script>
+
+     <!-- A Footer With The Name Of The Wibesite, The Social Media And Contact Us Rubric Short Access-->
+    
+
+<footer class="footerr">
+	     <p class="groupName">Vivarea Group</p>
+		 <div class="social">
+            <ul>
+                <li>
+                    <a href="#" title="facebook">
+                    <img src="images/facebook2.png"  width =20% /></a>
+                </li>
+                <li>
+                	<a href="#" title="twitter">
+                    <img src="images/twitter2.png"  width =20%  /></a>
+                </li>
+                <li>
+                	<a href="#" title="instagram">
+                    <img src="images/instagram.png"  width =20%/></a>
+                </li>
+            </ul>
+        </div>
+        <div class="contact">
+        	<p>Avez-vous des questions ?</p>
+        	<a href="contact.html">Nous sommes là pour vous aider ! </a> 
+        </div>
+</footer>
+ </body>
+
+ </html>
